@@ -449,6 +449,139 @@ def api_feedback(fb: FeedbackIn, user: dict = Depends(current_user)):
     return {"ok": True}
 
 
+# ---------------------------------------------------------------- SOS
+
+def _haversine_km(lat1, lon1, lat2, lon2):
+    from math import radians, sin, cos, asin, sqrt
+    lat1, lon1, lat2, lon2 = map(radians, (lat1, lon1, lat2, lon2))
+    a = sin((lat2 - lat1) / 2) ** 2 + cos(lat1) * cos(lat2) * sin((lon2 - lon1) / 2) ** 2
+    return 6371 * 2 * asin(sqrt(a))
+
+
+class EmergencyContactIn(BaseModel):
+    emg_name: str = Field(default="", max_length=80)
+    emg_phone: str = Field(default="", max_length=20)
+    emg_relation: str = Field(default="", max_length=40)
+
+
+@app.get("/api/profile")
+def get_profile(user: dict = Depends(current_user)):
+    conn = get_conn()
+    row = conn.execute(
+        "SELECT full_name, email, emg_name, emg_phone, emg_relation "
+        "FROM users WHERE id=?", (user["id"],)).fetchone()
+    conn.close()
+    return dict(row)
+
+
+@app.post("/api/profile/emergency-contact")
+def save_emergency_contact(body: EmergencyContactIn, user: dict = Depends(current_user)):
+    conn = get_conn()
+    conn.execute(
+        "UPDATE users SET emg_name=?, emg_phone=?, emg_relation=? WHERE id=?",
+        (body.emg_name.strip(), body.emg_phone.strip(), body.emg_relation.strip(), user["id"]))
+    conn.commit()
+    conn.close()
+    return {"ok": True}
+
+
+class SOSIn(BaseModel):
+    lat: float | None = None
+    lon: float | None = None
+    accuracy_m: int | None = None
+    message: str = Field(default="", max_length=300)
+
+
+def _notify_emergency_contact(alert: dict):
+    """Alert dispatcher. The prototype logs the alert server-side (visible in
+    the admin SOS feed + server console); an SMTP/SMS gateway plugs in here
+    for production without changing any caller."""
+    print(f"[SOS ALERT] user={alert['user_name']} at {alert['created_at']} "
+          f"loc={alert['maps_link'] or 'unknown'} -> notify {alert['contact_name']} "
+          f"({alert['contact_phone']})", flush=True)
+    return "sent" if alert["contact_phone"] else "no_contact"
+
+
+@app.post("/api/sos")
+def trigger_sos(body: SOSIn, user: dict = Depends(current_user)):
+    conn = get_conn()
+    u = conn.execute("SELECT full_name, emg_name, emg_phone, emg_relation "
+                     "FROM users WHERE id=?", (user["id"],)).fetchone()
+    maps_link = ""
+    if body.lat is not None and body.lon is not None:
+        maps_link = f"https://maps.google.com/?q={body.lat:.6f},{body.lon:.6f}"
+    cur = conn.execute(
+        "INSERT INTO sos_alerts (user_id, lat, lon, accuracy_m, maps_link, message, "
+        "contact_name, contact_phone) VALUES (?,?,?,?,?,?,?,?)",
+        (user["id"], body.lat, body.lon, body.accuracy_m, maps_link,
+         body.message.strip(), u["emg_name"], u["emg_phone"]))
+    alert_id = cur.lastrowid
+    row = conn.execute("SELECT created_at FROM sos_alerts WHERE id=?", (alert_id,)).fetchone()
+    alert = {
+        "id": alert_id, "created_at": row["created_at"], "user_name": u["full_name"],
+        "maps_link": maps_link, "contact_name": u["emg_name"], "contact_phone": u["emg_phone"],
+    }
+    alert_status = _notify_emergency_contact(alert)
+    conn.execute("UPDATE sos_alerts SET alert_status=? WHERE id=?", (alert_status, alert_id))
+    conn.commit()
+
+    # nearby help for the response screen
+    nearby = []
+    if body.lat is not None and body.lon is not None:
+        services = rows_to_dicts(conn.execute("SELECT * FROM emergency_services").fetchall())
+        for s in services:
+            s["distance_km"] = round(_haversine_km(body.lat, body.lon, s["lat"], s["lon"]), 1)
+        services.sort(key=lambda s: s["distance_km"])
+        seen_types = {}
+        for s in services:
+            seen_types.setdefault(s["type"], []).append(s)
+        for t in ("hospital", "police", "pharmacy"):
+            nearby.extend(seen_types.get(t, [])[:2])
+    conn.close()
+    return {
+        "ok": True, "alert_id": alert_id, "reference": f"SOS-{alert_id:05d}",
+        "created_at": alert["created_at"], "maps_link": maps_link,
+        "contact": {"name": u["emg_name"], "phone": u["emg_phone"],
+                    "relation": u["emg_relation"], "alerted": alert_status == "sent"},
+        "nearby": nearby,
+        "helplines": [
+            {"name": "Police", "number": "112"},
+            {"name": "Ambulance", "number": "108"},
+            {"name": "Disaster Helpline", "number": "1070"},
+            {"name": "Tourist Helpline", "number": "1364"},
+        ],
+    }
+
+
+@app.get("/api/sos/mine")
+def my_sos_alerts(user: dict = Depends(current_user)):
+    conn = get_conn()
+    rows = rows_to_dicts(conn.execute(
+        "SELECT id, created_at, maps_link, message, alert_status, status "
+        "FROM sos_alerts WHERE user_id=? ORDER BY id DESC LIMIT 10", (user["id"],)).fetchall())
+    conn.close()
+    return {"alerts": rows}
+
+
+@app.get("/api/emergency/nearby")
+def emergency_nearby(lat: float = Query(ge=-90, le=90), lon: float = Query(ge=-180, le=180),
+                     user: dict = Depends(current_user)):
+    """Emergency dashboard: nearest hospitals, police stations and pharmacies."""
+    conn = get_conn()
+    services = rows_to_dicts(conn.execute("SELECT * FROM emergency_services").fetchall())
+    conn.close()
+    for s in services:
+        s["distance_km"] = round(_haversine_km(lat, lon, s["lat"], s["lon"]), 1)
+        s["maps_link"] = f"https://maps.google.com/?q={s['lat']},{s['lon']}"
+    services.sort(key=lambda s: s["distance_km"])
+    grouped = {"hospital": [], "police": [], "pharmacy": []}
+    for s in services:
+        if s["type"] in grouped and len(grouped[s["type"]]) < 4:
+            grouped[s["type"]].append(s)
+    return {"hospitals": grouped["hospital"], "police": grouped["police"],
+            "pharmacies": grouped["pharmacy"]}
+
+
 # ---------------------------------------------------------------- admin
 
 @app.get("/api/admin/analytics")
@@ -471,6 +604,11 @@ def admin_analytics(user: dict = Depends(admin_user)):
     biz_top = rows_to_dicts(conn.execute(
         "SELECT biz.name, biz.place, COUNT(*) count FROM bookings b JOIN businesses biz ON biz.id=b.business_id "
         "WHERE b.status='confirmed' GROUP BY biz.id ORDER BY count DESC LIMIT 8").fetchall())
+    sos_feed = rows_to_dicts(conn.execute(
+        "SELECT a.id, a.created_at, u.full_name, a.maps_link, a.message, "
+        "a.contact_name, a.contact_phone, a.alert_status, a.status "
+        "FROM sos_alerts a JOIN users u ON u.id=a.user_id "
+        "ORDER BY a.id DESC LIMIT 10").fetchall())
     totals = conn.execute(
         "SELECT (SELECT COUNT(*) FROM users WHERE role='traveller') users,"
         " (SELECT COUNT(*) FROM query_log) queries,"
@@ -480,7 +618,8 @@ def admin_analytics(user: dict = Depends(admin_user)):
         " (SELECT COUNT(*) FROM businesses) businesses,"
         " (SELECT COUNT(*) FROM pois) pois,"
         " (SELECT COALESCE(ROUND(AVG(rating),2),0) FROM feedback) avg_feedback,"
-        " (SELECT COUNT(*) FROM feedback) feedback_count").fetchone()
+        " (SELECT COUNT(*) FROM feedback) feedback_count,"
+        " (SELECT COUNT(*) FROM sos_alerts) sos_alerts").fetchone()
     conn.close()
     return {
         "totals": dict(totals),
@@ -491,6 +630,7 @@ def admin_analytics(user: dict = Depends(admin_user)):
         "month_split": months,
         "booking_types": biz_types,
         "top_businesses": biz_top,
+        "sos_feed": sos_feed,
     }
 
 

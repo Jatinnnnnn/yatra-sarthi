@@ -48,6 +48,9 @@ def _migrate(conn):
         "plans": [("user_id", "INTEGER")],
         "query_log": [("user_id", "INTEGER")],
         "feedback": [("user_id", "INTEGER")],
+        "users": [("emg_name", "TEXT DEFAULT ''"),
+                  ("emg_phone", "TEXT DEFAULT ''"),
+                  ("emg_relation", "TEXT DEFAULT ''")],
     }
     for table, cols in needed.items():
         exists = conn.execute(
@@ -132,7 +135,31 @@ def init_db():
                 full_name TEXT NOT NULL,
                 email TEXT NOT NULL UNIQUE,
                 password_hash TEXT NOT NULL,
-                role TEXT NOT NULL DEFAULT 'traveller'
+                role TEXT NOT NULL DEFAULT 'traveller',
+                emg_name TEXT DEFAULT '',
+                emg_phone TEXT DEFAULT '',
+                emg_relation TEXT DEFAULT ''
+            );
+            CREATE TABLE IF NOT EXISTS emergency_services (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL, type TEXT NOT NULL,
+                place TEXT NOT NULL, district TEXT NOT NULL,
+                phone TEXT NOT NULL,
+                lat REAL NOT NULL, lon REAL NOT NULL,
+                note TEXT NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS sos_alerts (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')),
+                user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+                lat REAL, lon REAL,
+                accuracy_m INTEGER,
+                maps_link TEXT NOT NULL DEFAULT '',
+                message TEXT NOT NULL DEFAULT '',
+                contact_name TEXT NOT NULL DEFAULT '',
+                contact_phone TEXT NOT NULL DEFAULT '',
+                alert_status TEXT NOT NULL DEFAULT 'sent',
+                status TEXT NOT NULL DEFAULT 'active'
             );
             CREATE TABLE IF NOT EXISTS sessions (
                 token TEXT PRIMARY KEY,
@@ -203,6 +230,9 @@ def init_db():
         _load_csv(conn, "alternatives", "alternatives.csv", [
             "famous", "alternative", "district", "distance_km", "travel_time",
             "reason", "best_for", "typical_crowd",
+        ])
+        _load_csv(conn, "emergency_services", "emergency_services.csv", [
+            "name", "type", "place", "district", "phone", "lat", "lon", "note",
         ])
         # seed demo accounts (password shown in README for the demo)
         if not conn.execute("SELECT 1 FROM users WHERE email='admin@yatrasarthi.in'").fetchone():

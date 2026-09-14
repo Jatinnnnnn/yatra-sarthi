@@ -366,3 +366,4 @@ def apply_weather(plan: dict) -> dict:
     plan["weather_changes"] = changes
     plan["replanned"] = bool(changes)
     return plan
+

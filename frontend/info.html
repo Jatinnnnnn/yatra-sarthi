@@ -42,7 +42,45 @@
   </div>
 </section>
 
-<section class="section" id="events">
+<section class="section" id="sos">
+  <div class="section-head">
+    <h2>Safety &amp; SOS</h2>
+    <p>One-tap SOS with live location, emergency contact alert and nearest help.</p>
+  </div>
+
+  <div class="sos-grid">
+    <div class="card sos-card">
+      <button type="button" id="sosBtn" class="sos-btn">🆘<span>PRESS FOR SOS</span></button>
+      <p class="sos-hint" id="sosHint">Sends your live location to your emergency contact and the tourism control room.</p>
+      <div id="sosResult"></div>
+    </div>
+
+    <div class="card emg-card">
+      <h3>👨‍👩‍👧 Emergency Contact</h3>
+      <p class="emg-sub">Alerted automatically whenever you press SOS.</p>
+      <form id="emgForm">
+        <input id="emgName" type="text" maxlength="80" placeholder="Contact name, e.g. Ramesh Kumar" required />
+        <input id="emgPhone" type="tel" maxlength="20" placeholder="Phone number, e.g. 98765 43210" required />
+        <select id="emgRelation" required>
+          <option value="">Relationship…</option>
+          <option>Father</option><option>Mother</option><option>Spouse</option>
+          <option>Brother</option><option>Sister</option><option>Friend</option><option>Other</option>
+        </select>
+        <button class="btn btn-primary" type="submit">Save Contact</button>
+        <p class="emg-saved" id="emgSaved"></p>
+      </form>
+    </div>
+  </div>
+
+  <div class="card emg-dash">
+    <h3>🚑 Emergency Dashboard — help near you</h3>
+    <p class="emg-sub">Uses your device location to list the nearest hospitals, police stations and pharmacies from our verified dataset.</p>
+    <button type="button" class="btn btn-primary" id="nearbyBtn">📍 Find help near me</button>
+    <div id="nearbyResult"></div>
+  </div>
+</section>
+
+<section class="section section-alt" id="events">
   <div class="section-head">
     <h2>Fairs &amp; Festivals</h2>
     <p>Time your trip with the cultural calendar of Devbhoomi.</p>
@@ -61,7 +99,7 @@
   <div class="event-grid" id="eventGrid"></div>
 </section>
 
-<section class="section section-alt" id="feedback">
+<section class="section" id="feedback">
   <div class="section-head"><h2>Rate Your Experience</h2></div>
   <form class="card feedback-card" id="feedbackForm">
     <div class="stars" id="stars">

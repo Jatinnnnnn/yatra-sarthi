@@ -1,0 +1,43 @@
+name,type,place,district,phone,lat,lon,note
+Government Hospital Rishikesh (SPS),hospital,Rishikesh,Dehradun,0135-2430402,30.1033,78.2948,Govt hospital near Dehradun Rd; AIIMS trauma centre 6 km
+AIIMS Rishikesh,hospital,Rishikesh,Dehradun,0135-2462929,30.0869,78.2831,Best-equipped emergency & trauma centre in the valley
+Rishikesh Kotwali,police,Rishikesh,Dehradun,0135-2430333,30.1078,78.2926,Main police station near Triveni Ghat
+Shivam Medical Store,pharmacy,Rishikesh,Dehradun,94120-53821,30.1091,78.2957,24x7 chemist near Govt Hospital gate
+District Hospital Haridwar,hospital,Haridwar,Haridwar,01334-226060,29.9457,78.1642,District govt hospital near Ranipur More
+Haridwar Kotwali,police,Haridwar,Haridwar,01334-227777,29.9515,78.1580,Near Har Ki Pauri; mela control room in season
+Jan Aushadhi Kendra Haridwar,pharmacy,Haridwar,Haridwar,89793-40402,29.9460,78.1633,Generic medicines at govt rates near District Hospital
+Govt Doon Medical College Hospital,hospital,Dehradun,Dehradun,0135-2720216,30.3195,78.0322,State referral hospital; 24x7 emergency
+Dehradun Kotwali,police,Dehradun,Dehradun,0135-2653047,30.3247,78.0410,City kotwali near Paltan Bazaar
+Combined Medical Store Dehradun,pharmacy,Dehradun,Dehradun,98973-21200,30.3200,78.0330,24 hr pharmacy opposite Doon Hospital
+Civil Hospital Mussoorie,hospital,Mussoorie,Dehradun,0135-6632053,30.4550,78.0770,Landour civil hospital; serious cases referred to Doon
+Mussoorie Police Station,police,Mussoorie,Dehradun,0135-2632083,30.4574,78.0664,On the Mall Road near Picture Palace
+Mussoorie Medical Hall,pharmacy,Mussoorie,Dehradun,94120-56478,30.4568,78.0672,Chemist on Mall Road open till late
+B D Pandey District Hospital,hospital,Nainital,Nainital,05942-235022,29.3934,79.4538,District hospital at Mallital
+Nainital Kotwali,police,Nainital,Nainital,05942-235424,29.3928,79.4520,Mallital police station near flats ground
+Lake View Pharmacy,pharmacy,Nainital,Nainital,97565-33221,29.3920,79.4530,Chemist near Bara Bazaar Mallital
+District Hospital Almora,hospital,Almora,Almora,05962-230322,29.5980,79.6600,Base hospital for eastern Kumaon
+Almora Kotwali,police,Almora,Almora,05962-230032,29.5975,79.6580,Main bazaar police station
+Combined Hospital Ramnagar,hospital,Ramnagar,Nainital,05947-251322,29.3930,79.1280,Nearest emergency cover for Jim Corbett safaris
+Ramnagar Kotwali,police,Ramnagar,Nainital,05947-251333,29.3945,79.1305,Near Corbett gate road
+CHC Joshimath,hospital,Joshimath,Chamoli,01389-222215,30.5560,79.5650,Community health centre; army hospital assists nearby
+Joshimath Police Station,police,Joshimath,Chamoli,01389-222100,30.5545,79.5630,Auli ropeway rescue coordination point
+CHC Sonprayag,hospital,Sonprayag,Rudraprayag,01364-233727,30.6320,78.9940,Medical relief posts every 2 km on Kedarnath trek in season
+Sonprayag Police Chowki,police,Sonprayag,Rudraprayag,01364-233655,30.6310,78.9925,Kedarnath yatra registration & rescue post
+CHC Guptkashi,hospital,Guptkashi,Rudraprayag,01364-267228,30.5230,79.0790,Helipad medical desk during Char Dham yatra
+Guptkashi Police Station,police,Guptkashi,Rudraprayag,01364-267233,30.5225,79.0800,On Kedarnath highway
+District Hospital Uttarkashi,hospital,Uttarkashi,Uttarkashi,01374-222066,30.7280,78.4360,Gangotri-Yamunotri route emergencies routed here
+Uttarkashi Kotwali,police,Uttarkashi,Uttarkashi,01374-222116,30.7260,78.4340,Near main bazaar
+District Hospital Gopeshwar,hospital,Chamoli-Gopeshwar,Chamoli,01372-252102,30.4090,79.3200,District disaster control room 01372-251437
+Gopeshwar Kotwali,police,Chamoli-Gopeshwar,Chamoli,01372-252135,30.4100,79.3210,District HQ police station
+District Hospital Rudraprayag,hospital,Rudraprayag,Rudraprayag,01364-233722,30.2840,78.9810,Junction town for Kedarnath & Badrinath routes
+Rudraprayag Kotwali,police,Rudraprayag,Rudraprayag,01364-233355,30.2850,78.9825,At Kedarnath-Badrinath highway junction
+CHC Munsiyari,hospital,Munsiyari,Pithoragarh,05961-222525,30.0680,80.2390,High-altitude cases stabilised then referred to Pithoragarh
+Munsiyari Police Station,police,Munsiyari,Pithoragarh,05961-222533,30.0670,80.2380,Milam glacier trek registration post
+District Hospital Pithoragarh,hospital,Pithoragarh,Pithoragarh,05964-225205,29.5830,80.2180,Base district hospital for high Kumaon treks
+Pithoragarh Kotwali,police,Pithoragarh,Pithoragarh,05964-225339,29.5840,80.2170,District HQ police station
+PHC Ukhimath,hospital,Ukhimath,Rudraprayag,01364-263230,30.5140,79.0950,Nearest medical cover for Chopta meadow (12 km)
+Ukhimath Police Chowki,police,Ukhimath,Rudraprayag,01364-263224,30.5135,79.0940,Chopta-Tungnath route assistance
+Badrinath Medical Relief Post,hospital,Badrinath,Chamoli,01381-222218,30.7440,79.4930,Seasonal yatra medical post near temple
+Badrinath Police Post,police,Badrinath,Chamoli,01381-222236,30.7430,79.4940,Temple town police assistance
+Kedarnath Medical Relief Post,hospital,Kedarnath,Rudraprayag,01364-233727,30.7350,79.0670,Seasonal MRP at temple; helicopter evacuation coordination
+Kedarnath Police Post,police,Kedarnath,Rudraprayag,01364-233655,30.7340,79.0660,Seasonal post at temple town

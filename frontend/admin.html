@@ -69,6 +69,13 @@
       <div id="monthBars"></div>
     </div>
     <div class="panel wide">
+      <h3>🆘 SOS alerts (live safety feed)</h3>
+      <table>
+        <thead><tr><th>Time</th><th>Traveller</th><th>Location</th><th>Emergency contact</th><th>Alert</th></tr></thead>
+        <tbody id="sosRows"></tbody>
+      </table>
+    </div>
+    <div class="panel wide">
       <h3>Recent traveller queries (with parsed intent)</h3>
       <table>
         <thead><tr><th>Time</th><th>Query</th><th>Intent</th><th>Confidence</th></tr></thead>
@@ -104,7 +111,8 @@ async function load() {
     <div class="kpi"><strong>${t.replans}</strong><span>Weather replans</span></div>
     <div class="kpi"><strong>${t.bookings}</strong><span>Local-business bookings</span></div>
     <div class="kpi"><strong>${t.businesses}</strong><span>Businesses onboarded</span></div>
-    <div class="kpi"><strong>${t.avg_feedback || "—"}</strong><span>Avg. feedback (${t.feedback_count})</span></div>`;
+    <div class="kpi"><strong>${t.avg_feedback || "—"}</strong><span>Avg. feedback (${t.feedback_count})</span></div>
+    <div class="kpi"><strong>${t.sos_alerts}</strong><span>SOS alerts</span></div>`;
   bars(document.getElementById("intentBars"), d.intents, "intent", "count");
   bars(document.getElementById("hubBars"), d.popular_hubs, "destination", "count", "orange");
   bars(document.getElementById("bizTypeBars"), d.booking_types, "type", "count");
@@ -113,6 +121,12 @@ async function load() {
   bars(document.getElementById("groupBars"), d.group_split, "group_type", "count");
   bars(document.getElementById("monthBars"), d.month_split, "month", "count", "orange",
     (r) => MN[r.month] || "—");
+  document.getElementById("sosRows").innerHTML = d.sos_feed.map((a) => `
+    <tr><td>${esc(a.created_at)}</td><td>${esc(a.full_name)}</td>
+    <td>${a.maps_link ? `<a href="${esc(a.maps_link)}" target="_blank" rel="noopener">map ↗</a>` : "—"}</td>
+    <td>${esc(a.contact_name || "—")} ${a.contact_phone ? "· " + esc(a.contact_phone) : ""}</td>
+    <td><span class="pill">${esc(a.alert_status)}</span></td></tr>`).join("") ||
+    '<tr><td colspan="5" style="color:var(--muted)">No SOS alerts — all travellers safe. 🙏</td></tr>';
   document.getElementById("recentRows").innerHTML = d.recent_queries.map((q) => `
     <tr><td>${esc(q.created_at)}</td><td>${esc(q.message)}</td>
     <td><span class="pill">${esc(q.intent)}</span></td>
