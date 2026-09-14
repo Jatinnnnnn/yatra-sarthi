@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Travel Info — Yatra Sarthi</title>
+<link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<div class="page-banner" style="background-image:url('/static/img/kedarnath.jpg')">
+  <div class="page-banner-overlay"></div>
+  <div class="page-banner-text"><h1>Travel Info</h1><p>Transport routes · 7-day weather safety · festival calendar</p></div>
+</div>
+
+<section class="section" id="transport">
+  <div class="section-head">
+    <h2>Transport Adviser</h2>
+    <p>Rail, air, bus and local transport guidance for every gateway town.</p>
+  </div>
+  <div class="transport-card card">
+    <form id="transportForm" class="inline-form">
+      <input id="transportDest" type="text" list="destList" placeholder="Enter destination, e.g. Kedarnath" required />
+      <datalist id="destList"></datalist>
+      <button class="btn btn-primary" type="submit">Get Route</button>
+    </form>
+    <div id="transportResult"></div>
+  </div>
+</section>
+
+<section class="section section-alt" id="weather">
+  <div class="section-head">
+    <h2>Weather &amp; Safety Watch</h2>
+    <p>7-day outlook with travel-safety grading for hill routes.</p>
+  </div>
+  <div class="card weather-card">
+    <form id="weatherForm" class="inline-form">
+      <input id="weatherPlace" type="text" placeholder="Enter place, e.g. Auli" required />
+      <button class="btn btn-primary" type="submit">Check Forecast</button>
+    </form>
+    <div id="weatherResult"></div>
+  </div>
+</section>
+
+<section class="section" id="events">
+  <div class="section-head">
+    <h2>Fairs &amp; Festivals</h2>
+    <p>Time your trip with the cultural calendar of Devbhoomi.</p>
+  </div>
+  <div class="inline-form center">
+    <select id="eventMonth">
+      <option value="">All months</option>
+      <option value="1">January</option><option value="2">February</option>
+      <option value="3">March</option><option value="4">April</option>
+      <option value="5">May</option><option value="6">June</option>
+      <option value="7">July</option><option value="8">August</option>
+      <option value="9">September</option><option value="10">October</option>
+      <option value="11">November</option><option value="12">December</option>
+    </select>
+  </div>
+  <div class="event-grid" id="eventGrid"></div>
+</section>
+
+<section class="section section-alt" id="feedback">
+  <div class="section-head"><h2>Rate Your Experience</h2></div>
+  <form class="card feedback-card" id="feedbackForm">
+    <div class="stars" id="stars">
+      <button type="button" data-v="1">★</button><button type="button" data-v="2">★</button>
+      <button type="button" data-v="3">★</button><button type="button" data-v="4">★</button>
+      <button type="button" data-v="5">★</button>
+    </div>
+    <textarea id="feedbackComment" placeholder="Any suggestion for us? (optional)" maxlength="400"></textarea>
+    <button class="btn btn-primary" type="submit">Submit Feedback</button>
+    <p class="feedback-done" id="feedbackDone"></p>
+  </form>
+</section>
+
+<footer class="footer">
+  <p><strong>Yatra Sarthi</strong> · SIH 2026 · PS 26204</p>
+  <p class="footer-note">Emergency: Tourist Helpline 1364 · Disaster 1070 · Police 112 · Ambulance 108</p>
+</footer>
+
+<script src="/static/js/common.js"></script>
+<script src="/static/js/info.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Local Bazaar — Yatra Sarthi</title>
+<link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<div class="page-banner" style="background-image:url('/static/img/rishikesh.jpg')">
+  <div class="page-banner-overlay"></div>
+  <div class="page-banner-text">
+    <h1>Local Bazaar</h1>
+    <p>Book verified local restaurants, guides, taxis, artisans and experiences — money goes straight to hill families</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="trip-banner" id="tripBanner" hidden></div>
+  <div class="explore-filters">
+    <select id="bizPlace"><option value="">All places</option></select>
+    <select id="bizType"><option value="">All types</option></select>
+  </div>
+  <div class="biz-grid" id="bizGrid"><p style="text-align:center;color:var(--muted)">Loading local businesses…</p></div>
+</section>
+
+<section class="section section-alt" id="myBookings">
+  <div class="section-head">
+    <h2>My Bookings</h2>
+  </div>
+  <div id="bookingList" class="booking-list"></div>
+</section>
+
+<footer class="footer">
+  <p><strong>Yatra Sarthi</strong> · SIH 2026 · PS 26204 — every booking supports a hill family directly</p>
+</footer>
+
+<!-- booking modal -->
+<div class="modal-back" id="modalBack" hidden>
+  <div class="modal">
+    <h3 id="modalTitle">Book</h3>
+    <p id="modalSub" class="modal-sub"></p>
+    <form id="bookForm">
+      <label>Visit date <input type="date" name="visit_date" required /></label>
+      <label>Number of people <input type="number" name="people" min="1" max="30" value="2" required /></label>
+      <label>Note for the business (optional) <input type="text" name="note" maxlength="200" placeholder="e.g. veg only, pickup from hotel" /></label>
+      <p class="auth-err" id="bookErr"></p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost-dark" id="modalCancel">Cancel</button>
+        <button type="submit" class="btn btn-primary">Confirm Booking</button>
+      </div>
+    </form>
+    <div id="bookDone" hidden>
+      <p class="book-done-msg" id="bookDoneMsg"></p>
+      <div class="modal-actions"><button class="btn btn-primary" id="modalClose" type="button">Done</button></div>
+    </div>
+  </div>
+</div>
+
+<script src="/static/js/common.js"></script>
+<script src="/static/js/bazaar.js"></script>
+</body>
+</html>

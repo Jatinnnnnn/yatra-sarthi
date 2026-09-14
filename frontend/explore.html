@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Explore — Yatra Sarthi</title>
+<link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<div class="page-banner" style="background-image:url('/static/img/auli.jpg')">
+  <div class="page-banner-overlay"></div>
+  <div class="page-banner-text"><h1>Explore Uttarakhand</h1><p>50+ verified destinations across Garhwal and Kumaon — with live crowd status</p></div>
+</div>
+
+<section class="section">
+  <div class="explore-filters" id="exploreFilters">
+    <input type="text" id="exploreSearch" placeholder="Search places, e.g. trek, lake, temple…" />
+    <select id="exploreCategory"><option value="">All categories</option></select>
+    <select id="exploreDistrict"><option value="">All districts</option></select>
+  </div>
+  <div class="poi-grid" id="poiGrid"></div>
+</section>
+
+<footer class="footer">
+  <p><strong>Yatra Sarthi</strong> · SIH 2026 · PS 26204</p>
+</footer>
+
+<script src="/static/js/common.js"></script>
+<script src="/static/js/explore.js"></script>
+</body>
+</html>

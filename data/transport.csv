@@ -1,0 +1,24 @@
+destination,nearest_railhead,rail_km,nearest_airport,air_km,bus_route,road_note,local_transport,taxi_fare_est
+Rishikesh,Rishikesh (Yog Nagari),3,Jolly Grant Dehradun,21,"Direct UTC and private buses from Delhi ISBT Kashmiri Gate (5-6 hrs)","NH 34 fully paved, smooth drive","Shared autos, e-rickshaws, scooty rental 400/day",700
+Haridwar,Haridwar Junction,2,Jolly Grant Dehradun,37,"Frequent buses from Delhi, Chandigarh, Dehradun","NH 334 four lane highway","Cycle rickshaw, e-rickshaw, city bus",900
+Dehradun,Dehradun Railway Station,2,Jolly Grant Dehradun,25,"Volvo and ordinary buses from Delhi ISBT every 30 min","NH 307 and NH 34, expressway till Roorkee","City bus, Vikram shared auto, app cabs",600
+Mussoorie,Dehradun Railway Station,34,Jolly Grant Dehradun,54,"UTC buses from Dehradun ISBT and Library chowk","34 km hill road with 2 hairpin sections, avoid night fog in winter","Local taxis at Library and Picture Palace stands",1300
+Dhanaulti,Dehradun Railway Station,58,Jolly Grant Dehradun,78,"Limited buses from Dehradun via Mussoorie","Forest ridge road, icy patches in Dec-Jan","Shared jeeps from Mussoorie",2200
+New Tehri,Rishikesh (Yog Nagari),76,Jolly Grant Dehradun,93,"UTC buses from Rishikesh ISBT","NH 34 then NH 134 lake side road","Local taxis at bus stand",2800
+Nainital,Kathgodam,34,Pantnagar,65,"Overnight buses from Delhi Anand Vihar to Haldwani/Kathgodam","35 km climb from Kathgodam, congested on weekends","Cycle rickshaw on Mall Road, shared taxis",1400
+Bhimtal,Kathgodam,22,Pantnagar,53,"Buses to Haldwani then shared taxi","Gentler climb than Nainital route","Shared taxis and autos",1000
+Mukteshwar,Kathgodam,62,Pantnagar,93,"Bus to Bhowali then shared jeep","Orchard road, narrow near Ramgarh","Local jeeps from Bhowali",2500
+Ramnagar,Ramnagar,2,Pantnagar,82,"Direct buses from Delhi (Corbett gateway)","Plain terrain, NH 309","Safari jeeps and autos, resorts arrange pickup",700
+Ranikhet,Kathgodam,75,Pantnagar,109,"UTC buses from Haldwani","Pine forest road via Khairna, landslide prone in monsoon","Cantonment taxis",2900
+Almora,Kathgodam,80,Pantnagar,114,"Buses from Haldwani every hour","NH 109 via Khairna bridge","Shared jeeps to Kasar Devi and Jageshwar",3000
+Kausani,Kathgodam,117,Pantnagar,150,"Morning buses from Haldwani and Almora","Long winding route, start early","Local taxis, most points walkable",4200
+Sonprayag,Rishikesh (Yog Nagari),210,Jolly Grant Dehradun,225,"Early morning buses from Haridwar/Rishikesh in yatra season","NH 107, gate system in yatra season, landslide prone Jul-Aug","Shared jeeps to Gaurikund, then 16 km trek or helicopter",7500
+Joshimath,Rishikesh (Yog Nagari),250,Jolly Grant Dehradun,268,"Yatra season buses from Rishikesh ISBT before 6 am","NH 7 along Alaknanda, check advisories in monsoon","Auli ropeway, shared jeeps to Badrinath and Govindghat",8500
+Chopta,Rishikesh (Yog Nagari),160,Jolly Grant Dehradun,178,"Bus to Ukhimath, then shared jeep","Forest road, snow closes stretch in Jan-Feb","Shared jeeps from Ukhimath",6000
+Govindghat,Rishikesh (Yog Nagari),265,Jolly Grant Dehradun,283,"Badrinath route buses, get down before Pandukeshwar","NH 7, same as Badrinath route","Shared jeeps to Pulna, then trek to Ghangaria",9000
+Uttarkashi,Rishikesh (Yog Nagari),155,Jolly Grant Dehradun,173,"Gangotri route buses from Rishikesh","NH 34 along Bhagirathi","Shared jeeps to Gangotri and Harsil",5500
+Barkot,Dehradun Railway Station,150,Jolly Grant Dehradun,170,"Yamunotri route buses from Dehradun/Rishikesh","NH 123 via Damta","Shared jeeps to Janki Chatti",5800
+Munsiyari,Kathgodam,275,Pantnagar,310,"Bus to Thal/Pithoragarh, then jeep","Longest approach in Kumaon, 2 day journey advised","Local jeeps, limited fuel pumps",11000
+Gangolihat,Kathgodam,190,Pantnagar,225,"Bus to Pithoragarh side via Almora","Interior Kumaon roads, drive in daylight","Jeeps to Patal Bhuvaneshwar",7800
+Berinag,Kathgodam,175,Pantnagar,210,"Bus via Almora and Seraghat","Ridge road with tea garden stretch","Local jeeps to Chaukori",7200
+Chakrata,Dehradun Railway Station,88,Jolly Grant Dehradun,110,"Limited UTC buses from Dehradun","Cantonment permissions for foreigners restricted","Local taxis only",3400

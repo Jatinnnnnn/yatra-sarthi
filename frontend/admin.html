@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Yatra Sarthi — Tourism Analytics Dashboard</title>
+<link rel="stylesheet" href="/static/css/style.css" />
+<style>
+  body { background: #f0f3f0; }
+  .adm-wrap { max-width: 1180px; margin: 0 auto; padding: 2rem 1.2rem 3.5rem; }
+  .adm-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.6rem; }
+  .adm-head h1 { color: var(--pine); font-size: 1.6rem; }
+  .adm-head p { color: var(--muted); font-size: 0.88rem; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 1.6rem; }
+  .kpi { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 1rem 1.1rem; box-shadow: var(--shadow); }
+  .kpi strong { display: block; font-size: 1.7rem; color: var(--pine); }
+  .kpi span { font-size: 0.76rem; color: var(--muted); }
+  .adm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .panel { background: #fff; border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); padding: 1.1rem 1.2rem; }
+  .panel h3 { color: var(--pine); font-size: 1rem; margin-bottom: 0.8rem; }
+  .bar-row { display: grid; grid-template-columns: 150px 1fr 40px; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; font-size: 0.82rem; }
+  .bar-track { background: #eef2e6; border-radius: 999px; height: 14px; overflow: hidden; }
+  .bar-fill { height: 100%; background: linear-gradient(90deg, var(--pine), #3f8f5f); border-radius: 999px; }
+  .bar-fill.orange { background: linear-gradient(90deg, var(--saffron-dark), var(--saffron)); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+  th, td { text-align: left; padding: 0.45rem 0.5rem; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  .pill { background: #eef2e6; color: var(--pine); border-radius: 999px; padding: 0.1rem 0.55rem; font-size: 0.7rem; font-weight: 700; }
+  .wide { grid-column: 1 / -1; }
+  @media (max-width: 820px) { .adm-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="adm-wrap">
+  <div class="adm-head">
+    <div>
+      <h1>Tourism Analytics Dashboard</h1>
+      <p>Live demand and local-economy signals — for the Uttarakhand Tourism Department.</p>
+    </div>
+    <button class="btn btn-primary" id="refreshBtn">↻ Refresh</button>
+  </div>
+
+  <div class="kpi-grid" id="kpis"></div>
+
+  <div class="adm-grid">
+    <div class="panel">
+      <h3>What travellers are asking (intent mix)</h3>
+      <div id="intentBars"></div>
+    </div>
+    <div class="panel">
+      <h3>Most planned hubs</h3>
+      <div id="hubBars"></div>
+    </div>
+    <div class="panel">
+      <h3>Local business bookings by type</h3>
+      <div id="bizTypeBars"></div>
+    </div>
+    <div class="panel">
+      <h3>Top booked local businesses</h3>
+      <div id="bizTopBars"></div>
+    </div>
+    <div class="panel">
+      <h3>Traveller group split</h3>
+      <div id="groupBars"></div>
+    </div>
+    <div class="panel">
+      <h3>Planned travel months (seasonality)</h3>
+      <div id="monthBars"></div>
+    </div>
+    <div class="panel wide">
+      <h3>Recent traveller queries (with parsed intent)</h3>
+      <table>
+        <thead><tr><th>Time</th><th>Query</th><th>Intent</th><th>Confidence</th></tr></thead>
+        <tbody id="recentRows"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="/static/js/common.js"></script>
+<script>
+"use strict";
+renderNav("/admin");
+const MN = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+function bars(el, rows, labelKey, valueKey, cls, labelFn) {
+  const max = Math.max(1, ...rows.map((r) => r[valueKey]));
+  el.innerHTML = rows.length ? rows.map((r) => `
+    <div class="bar-row">
+      <span>${esc(labelFn ? labelFn(r) : r[labelKey])}</span>
+      <div class="bar-track"><div class="bar-fill ${cls || ""}" style="width:${(r[valueKey] / max) * 100}%"></div></div>
+      <span>${r[valueKey]}</span>
+    </div>`).join("") : '<p style="color:var(--muted);font-size:.85rem">No data yet — use the traveller site first.</p>';
+}
+
+async function load() {
+  const d = await api("/api/admin/analytics");
+  const t = d.totals;
+  document.getElementById("kpis").innerHTML = `
+    <div class="kpi"><strong>${t.users}</strong><span>Registered travellers</span></div>
+    <div class="kpi"><strong>${t.queries}</strong><span>Assistant queries</span></div>
+    <div class="kpi"><strong>${t.plans}</strong><span>Itineraries generated</span></div>
+    <div class="kpi"><strong>${t.replans}</strong><span>Weather replans</span></div>
+    <div class="kpi"><strong>${t.bookings}</strong><span>Local-business bookings</span></div>
+    <div class="kpi"><strong>${t.businesses}</strong><span>Businesses onboarded</span></div>
+    <div class="kpi"><strong>${t.avg_feedback || "—"}</strong><span>Avg. feedback (${t.feedback_count})</span></div>`;
+  bars(document.getElementById("intentBars"), d.intents, "intent", "count");
+  bars(document.getElementById("hubBars"), d.popular_hubs, "destination", "count", "orange");
+  bars(document.getElementById("bizTypeBars"), d.booking_types, "type", "count");
+  bars(document.getElementById("bizTopBars"), d.top_businesses, "name", "count", "orange",
+    (r) => `${r.name} (${r.place})`);
+  bars(document.getElementById("groupBars"), d.group_split, "group_type", "count");
+  bars(document.getElementById("monthBars"), d.month_split, "month", "count", "orange",
+    (r) => MN[r.month] || "—");
+  document.getElementById("recentRows").innerHTML = d.recent_queries.map((q) => `
+    <tr><td>${esc(q.created_at)}</td><td>${esc(q.message)}</td>
+    <td><span class="pill">${esc(q.intent)}</span></td>
+    <td>${Math.round(q.confidence * 100)}%</td></tr>`).join("") ||
+    '<tr><td colspan="4" style="color:var(--muted)">No queries logged yet.</td></tr>';
+}
+document.getElementById("refreshBtn").addEventListener("click", load);
+load();
+</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign in — Yatra Sarthi</title>
+<link rel="stylesheet" href="/static/css/style.css" />
+<style>
+  .auth-wrap {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: url("/static/img/nainital.jpg") center/cover no-repeat; position: relative; padding: 1.2rem;
+  }
+  .auth-wrap::before { content: ""; position: absolute; inset: 0; background: linear-gradient(120deg, rgba(9,30,18,0.9), rgba(9,30,18,0.55)); }
+  .auth-card { position: relative; width: 100%; max-width: 420px; background: #fff; border-radius: 18px; box-shadow: 0 24px 60px rgba(0,0,0,0.35); overflow: hidden; }
+  .auth-head { background: var(--pine); color: #fff; padding: 1.5rem 1.6rem 1.2rem; text-align: center; }
+  .auth-head .brand-mark { font-size: 2rem; }
+  .auth-head h1 { font-size: 1.4rem; margin-top: 0.2rem; }
+  .auth-head h1 strong { color: var(--saffron); }
+  .auth-head p { font-size: 0.8rem; opacity: 0.85; margin-top: 0.25rem; }
+  .auth-tabs { display: flex; border-bottom: 1px solid var(--line); }
+  .auth-tabs button { flex: 1; background: #f4f1e8; border: none; padding: 0.85rem; font-size: 0.95rem; font-weight: 700; color: var(--muted); cursor: pointer; }
+  .auth-tabs button.active { background: #fff; color: var(--pine); border-bottom: 3px solid var(--saffron); }
+  .auth-body { padding: 1.4rem 1.6rem 1.6rem; }
+  .auth-body label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--muted); margin-bottom: 0.85rem; }
+  .auth-body input { width: 100%; margin-top: 0.3rem; padding: 0.65rem 0.8rem; border: 1.5px solid var(--line); border-radius: 9px; font-size: 0.95rem; outline: none; }
+  .auth-body input:focus { border-color: var(--pine); }
+  .auth-err { color: var(--alert); font-size: 0.84rem; min-height: 1.2rem; margin-bottom: 0.5rem; text-align: center; }
+  .auth-demo { margin-top: 1rem; font-size: 0.74rem; color: var(--muted); text-align: center; background: #f7f5ef; border-radius: 9px; padding: 0.6rem; }
+</style>
+</head>
+<body>
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-head">
+      <div class="brand-mark">🏔️</div>
+      <h1><strong>Yatra</strong> Sarthi</h1>
+      <p>Smart Tourism Assistant for Uttarakhand · SIH 2026 · PS 26204</p>
+    </div>
+    <div class="auth-tabs">
+      <button id="tabLogin" class="active" type="button">Sign In</button>
+      <button id="tabSignup" type="button">Create Account</button>
+    </div>
+    <div class="auth-body">
+      <form id="loginForm">
+        <label>Email
+          <input name="email" type="email" required autocomplete="email" placeholder="you@example.com" />
+        </label>
+        <label>Password
+          <input name="password" type="password" required autocomplete="current-password" placeholder="••••••••" />
+        </label>
+        <p class="auth-err" id="loginErr"></p>
+        <button class="btn btn-primary btn-block" type="submit">Sign In</button>
+      </form>
+      <form id="signupForm" hidden>
+        <label>Full name
+          <input name="full_name" type="text" required minlength="2" placeholder="Your name" />
+        </label>
+        <label>Email
+          <input name="email" type="email" required autocomplete="email" placeholder="you@example.com" />
+        </label>
+        <label>Password (min 6 characters)
+          <input name="password" type="password" required minlength="6" autocomplete="new-password" placeholder="Create a password" />
+        </label>
+        <p class="auth-err" id="signupErr"></p>
+        <button class="btn btn-primary btn-block" type="submit">Create Account</button>
+      </form>
+      <div class="auth-demo">
+        Tourism-department demo: <b>admin@yatrasarthi.in</b> / <b>admin@123</b> (opens the analytics dashboard)
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+"use strict";
+const tabL = document.getElementById("tabLogin"), tabS = document.getElementById("tabSignup");
+const formL = document.getElementById("loginForm"), formS = document.getElementById("signupForm");
+tabL.onclick = () => { tabL.classList.add("active"); tabS.classList.remove("active"); formL.hidden = false; formS.hidden = true; };
+tabS.onclick = () => { tabS.classList.add("active"); tabL.classList.remove("active"); formS.hidden = false; formL.hidden = true; };
+
+async function auth(path, body, errEl) {
+  errEl.textContent = "";
+  const res = await fetch(path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) { errEl.textContent = data.detail || "Something went wrong"; return; }
+  window.location.href = data.role === "admin" ? "/admin" : "/";
+}
+formL.addEventListener("submit", (e) => {
+  e.preventDefault();
+  auth("/api/auth/login", { email: formL.email.value.trim(), password: formL.password.value }, document.getElementById("loginErr"));
+});
+formS.addEventListener("submit", (e) => {
+  e.preventDefault();
+  auth("/api/auth/signup", { full_name: formS.full_name.value.trim(), email: formS.email.value.trim(), password: formS.password.value }, document.getElementById("signupErr"));
+});
+</script>
+</body>
+</html>

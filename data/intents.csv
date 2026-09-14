@@ -1,0 +1,127 @@
+text,intent
+plan a trip to uttarakhand for 5 days,plan_trip
+i want to plan a family tour of nainital,plan_trip
+make an itinerary for rishikesh and mussoorie,plan_trip
+plan 3 din ka trip haridwar se,plan_trip
+suggest a 4 day plan under 15000,plan_trip
+we are 6 friends and want a week long trip,plan_trip
+create a honeymoon itinerary for hills,plan_trip
+plan char dham yatra for my parents,plan_trip
+weekend trip plan from delhi to uttarakhand,plan_trip
+mujhe 5 din ka tour plan chahiye,plan_trip
+itinerary bana do auli ke liye,plan_trip
+plan a budget trip for students,plan_trip
+i have 2 days what should i visit,plan_trip
+suggest places for a 7 day uttarakhand tour,plan_trip
+plan solo trip in december,plan_trip
+what is the weather in nainital,ask_weather
+weather forecast for kedarnath tomorrow,ask_weather
+will it rain in mussoorie this weekend,ask_weather
+auli me barf kab girti hai,ask_weather
+temperature in rishikesh in january,ask_weather
+is it snowing in auli right now,ask_weather
+kedarnath ka mausam kaisa hai,ask_weather
+best weather months for valley of flowers,ask_weather
+climate of chopta in november,ask_weather
+haridwar weather today,ask_weather
+is monsoon safe for chardham,ask_weather
+snowfall prediction in mussoorie,ask_weather
+how cold is munsiyari in winter,ask_weather
+how to reach nainital from delhi,ask_transport
+nearest railway station to mussoorie,ask_transport
+which airport is close to rishikesh,ask_transport
+bus from haridwar to badrinath,ask_transport
+kedarnath kaise jaye,ask_transport
+taxi fare from dehradun to mussoorie,ask_transport
+how to reach auli from haridwar,ask_transport
+train to kathgodam from delhi,ask_transport
+is there helicopter service for kedarnath,ask_transport
+road condition to chopta,ask_transport
+local transport in nainital,ask_transport
+how far is jim corbett from delhi,ask_transport
+rishikesh to valley of flowers route,ask_transport
+dehradun airport se mussoorie kitna door hai,ask_transport
+cheap hotels in nainital near mall road,find_hotel
+best homestay in mukteshwar,find_hotel
+where to stay in rishikesh,find_hotel
+budget hotel in haridwar near har ki pauri,find_hotel
+kedarnath me rukne ki jagah,find_hotel
+camping options in shivpuri,find_hotel
+gmvn guest house in auli,find_hotel
+luxury resort in jim corbett,find_hotel
+dharamshala in badrinath,find_hotel
+stay under 1500 in mussoorie,find_hotel
+hotel booking in kausani with mountain view,find_hotel
+homestay in chopta village,find_hotel
+how much does a nainital trip cost,ask_budget
+budget for 5 day uttarakhand tour,ask_budget
+kedarnath yatra ka kharcha kitna hai,ask_budget
+cost of rafting in rishikesh,ask_budget
+how expensive is auli skiing,ask_budget
+char dham yatra budget for 2 people,ask_budget
+trip under 10000 possible,ask_budget
+average daily expense in mussoorie,ask_budget
+corbett safari price,ask_budget
+paragliding cost in bhimtal,ask_budget
+i want to do river rafting,adventure
+best adventure sports in uttarakhand,adventure
+bungee jumping in rishikesh details,adventure
+skiing in auli january,adventure
+trekking options for beginners,adventure
+paragliding near nainital,adventure
+camping and bonfire by the river,adventure
+mujhe trekking karni hai,adventure
+chopta chandrashila trek difficulty,adventure
+adventure activities for college group,adventure
+zipline and rope course dhanaulti,adventure
+kayaking in ganga,adventure
+char dham yatra details,pilgrimage
+kedarnath opening date this year,pilgrimage
+badrinath temple darshan timing,pilgrimage
+haridwar ganga aarti time,pilgrimage
+hemkund sahib yatra kab shuru hogi,pilgrimage
+temples to visit in almora,pilgrimage
+jageshwar dham story,pilgrimage
+spiritual places in rishikesh,pilgrimage
+gangotri yamunotri tour,pilgrimage
+neelkanth mahadev temple visit,pilgrimage
+tell me about valley of flowers,sightseeing_info
+best places to visit in nainital,sightseeing_info
+what is famous in mussoorie,sightseeing_info
+top tourist spots in dehradun,sightseeing_info
+things to do in auli,sightseeing_info
+nainital me kya kya ghum sakte hai,sightseeing_info
+hidden places in uttarakhand,sightseeing_info
+is munsiyari worth visiting,sightseeing_info
+about jim corbett national park,sightseeing_info
+offbeat destinations in kumaon,sightseeing_info
+best sunrise points in uttarakhand,sightseeing_info
+lakes to visit near bhimtal,sightseeing_info
+upcoming festivals in uttarakhand,events
+kanwar yatra dates,events
+when is kumbh mela in haridwar,events
+international yoga festival rishikesh,events
+nanda devi raj jat yatra,events
+winter carnival in auli,events
+uttarayani mela bageshwar kab hai,events
+events in september in uttarakhand,events
+harela festival details,events
+emergency helpline number in uttarakhand,emergency
+tourist police contact nainital,emergency
+medical help on kedarnath trek,emergency
+my vehicle broke down near chamoli,emergency
+landslide alert on badrinath highway,emergency
+ambulance number in hill areas,emergency
+lost my documents in haridwar what to do,emergency
+disaster helpline uttarakhand,emergency
+hello,greeting
+hi there,greeting
+namaste,greeting
+hey yatra sarthi,greeting
+good morning,greeting
+hi i need help,greeting
+hello can you help me plan,greeting
+namaskar ji,greeting
+thanks a lot,greeting
+thank you so much,greeting
+great suggestion thanks,greeting

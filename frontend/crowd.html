@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Crowd Advisor — Yatra Sarthi</title>
+<link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<div class="page-banner" style="background-image:url('/static/img/haridwar.jpg');background-position:center 35%">
+  <div class="page-banner-overlay"></div>
+  <div class="page-banner-text">
+    <h1>Crowd Advisor</h1>
+    <p>Live crowd levels for famous spots — with quieter nearby alternatives and the reason they work</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="card" style="max-width:760px;margin:0 auto 2rem">
+    <form id="crowdForm" class="inline-form" style="margin-bottom:0">
+      <input id="crowdPlace" type="text" placeholder="Check a place, e.g. Nainital, Kempty Falls, Har Ki Pauri…" required />
+      <button class="btn btn-primary" type="submit">Check Crowd</button>
+    </form>
+    <div id="crowdSearchResult"></div>
+  </div>
+
+  <div class="section-head">
+    <h2>Today's crowd board</h2>
+    <p id="boardDate">Famous destinations ranked by live footfall — overcrowded spots show their decongestion alternative.</p>
+  </div>
+  <div id="crowdBoard" class="crowd-board"><p style="text-align:center;color:var(--muted)">Loading crowd data…</p></div>
+</section>
+
+<footer class="footer">
+  <p><strong>Yatra Sarthi</strong> · SIH 2026 · PS 26204 — decongesting Uttarakhand's famous spots, one alternative at a time</p>
+</footer>
+
+<script src="/static/js/common.js"></script>
+<script src="/static/js/crowd.js"></script>
+</body>
+</html>

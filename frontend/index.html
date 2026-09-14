@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Yatra Sarthi — Smart Tourism Assistant for Uttarakhand</title>
+<link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<header class="hero" id="home">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-kicker">देवभूमि उत्तराखण्ड · Smart India Hackathon 2026 · PS 26204</p>
+    <h1>Plan the Himalayas,<br /><span>the smart way.</span></h1>
+    <p class="hero-sub">Yatra Sarthi understands your travel query, builds day-wise itineraries,
+      watches mountain weather, warns about overcrowding with nearby alternatives,
+      and connects you directly to local businesses.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#assistant">Ask the Assistant</a>
+      <a class="btn btn-ghost" href="/planner">Build My Trip</a>
+    </div>
+    <div class="hero-stats">
+      <div><strong>50+</strong><span>Destinations</span></div>
+      <div><strong>30</strong><span>Local businesses</span></div>
+      <div><strong>18</strong><span>Crowd alternatives</span></div>
+      <div><strong>16</strong><span>Fairs &amp; festivals</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="features">
+  <div class="section-head">
+    <h2>One platform, whole journey</h2>
+  </div>
+  <div class="feature-grid">
+    <a class="feature-card" href="/planner"><span>🗺️</span><h3>Trip Planner</h3><p>Day-wise itinerary with cost estimate and automatic weather replanning.</p></a>
+    <a class="feature-card" href="/crowd"><span>🚦</span><h3>Crowd Advisor</h3><p>Live crowd levels for famous spots with quieter nearby alternatives.</p></a>
+    <a class="feature-card" href="/bazaar"><span>🛍️</span><h3>Local Bazaar</h3><p>Book local restaurants, guides, taxis, artisans and experiences directly.</p></a>
+    <a class="feature-card" href="/explore"><span>🏔️</span><h3>Explore</h3><p>50+ verified destinations across 13 districts with live crowd status.</p></a>
+    <a class="feature-card" href="/info"><span>🚌</span><h3>Travel Info</h3><p>Transport routes, 7-day weather safety and the festival calendar.</p></a>
+    <a class="feature-card" href="#assistant"><span>💬</span><h3>Assistant</h3><p>Ask anything in English or Hinglish — the ML intent engine routes it.</p></a>
+  </div>
+</section>
+
+<section class="section section-alt" id="assistant">
+  <div class="section-head">
+    <h2>Travel Assistant</h2>
+    <p>Type naturally — the intent engine works out what you need.</p>
+  </div>
+  <div class="chat-card">
+    <div class="chat-window" id="chatWindow">
+      <div class="msg bot">
+        <div class="msg-bubble">Namaste! 🙏 I am <strong>Yatra Sarthi</strong>. Try:
+          <em>"plan a 4 day family trip to Nainital in June under 20000"</em>,
+          <em>"weather in Kedarnath"</em> or <em>"how to reach Auli"</em>.</div>
+      </div>
+    </div>
+    <div class="chat-suggest" id="chatSuggest">
+      <button>plan a 4 day family trip to nainital under 20000</button>
+      <button>weather in kedarnath</button>
+      <button>how to reach auli</button>
+      <button>best adventure sports in rishikesh</button>
+      <button>hotels in mussoorie</button>
+      <button>festivals in january</button>
+    </div>
+    <form class="chat-input" id="chatForm">
+      <input id="chatText" type="text" placeholder="Ask me anything about travelling in Uttarakhand…" autocomplete="off" maxlength="400" />
+      <button class="btn btn-primary" type="submit">Send</button>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <p><strong>Yatra Sarthi</strong> — Smart Tourism Assistant for Uttarakhand</p>
+  <p>SIH 2026 · Problem Statement 26204 · AICTE, MIC-Student Innovation · Theme: Travel &amp; Tourism</p>
+  <p class="footer-note">Prototype (internal round) — Uttarakhand pilot. Emergency: Tourist Helpline 1364 · Disaster 1070 · Police 112</p>
+</footer>
+
+<script src="/static/js/common.js"></script>
+<script src="/static/js/home.js"></script>
+</body>
+</html>
